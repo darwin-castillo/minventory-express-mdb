@@ -1,0 +1,26 @@
+{
+  "name": "minventory-api-mdb",
+  "version": "1.0.0",
+  "description": "inventory min version made with express + mongodb ",
+  "homepage": "https://github.com/darwin-castillo/minnventory-api#readme",
+  "bugs": {
+    "url": "https://github.com/darwin-castillo/minnventory-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darwin-castillo/minnventory-api.git"
+  },
+  "license": "ISC",
+  "author": "Darwin Castillo",
+  "type": "commonjs",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongoose": "^9.1.5",
+    "twilio": "^5.12.0"
+  }
+}
