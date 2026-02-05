@@ -1,4 +1,6 @@
+const Product = require('../models/Product');
 const axios = require('axios');
+
 
 // Función para verificar el Webhook (Requerido por Meta)
 exports.verifyWebhook = (req, res) => {
