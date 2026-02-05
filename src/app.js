@@ -14,5 +14,11 @@ mongoose.connect(process.env.MONGO_URI)
 
 app.use(productRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🚀 Servidor en puerto ${PORT}`));
+
+// Solo ejecuta listen si no estás en Vercel (entorno local)
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
+}
+module.exports = app;
+
