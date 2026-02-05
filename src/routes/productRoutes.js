@@ -3,7 +3,8 @@ const router = express.Router();
 const productController = require('../controllers/productController');
 
 // Twilio Webhook
-router.post('/whatsapp', productController.handleWhatsApp);
+router.post('/whatsappWebhook', productController.handleWhatsApp);
+
 
 // Standard API Endpoints
 router.post('/api/products', productController.createProduct);
