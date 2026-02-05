@@ -17,6 +17,16 @@ app.use(productRoutes);
 app.use(whatsappRoutes);
 
 
+app.get("/variables", (req, res) => {
+    res.json({
+        MONGO_URI: process.env.MONGO_URI,
+        META_ACCESS_TOKEN: process.env.META_ACCESS_TOKEN,
+        META_PHONE_NUMBER_ID: process.env.META_PHONE_NUMBER_ID,
+        META_VERIFY_TOKEN: process.env.META_VERIFY_TOKEN,
+    });
+});
+
+
 // Solo ejecuta listen si no estás en Vercel (entorno local)
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 3000;
