@@ -2,7 +2,7 @@
 const { GoogleGenAI } = require("@google/genai");
 const productService = require("./productService");
 
-const ai = new GoogleGenAI({ apiKey: process.env.GOOGLE_API_KEY });
+const ai = new GoogleGenAI({});
 
 const askChatbot = async (userQuestion) => {
   // 1. Buscamos productos relacionados en la base de datos
