@@ -1,74 +1,42 @@
 const Product = require('../models/Product');
-const axios = require('axios');
+const response = require('../utils/responseHandler');
 
-// --- WHATSAPP WEBHOOK HANDLER (META VERSION) ---
-exports.handleWhatsApp = async (req, res) => {
-    try {
-        const entry = req.body.entry?.[0];
-        const changes = entry?.changes?.[0];
-        const message = changes?.value?.messages?.[0];
-
-        if (message && message.type === 'text') {
-            const phoneNumber = message.from; // Número del cliente
-            const incomingMsg = message.text.body.trim();
-
-            // 1. Buscar producto
-            const product = await Product.findOne({
-                name: { $regex: new RegExp(incomingMsg, "i") }
-            });
-
-            let responseText = "❌ Disculpa, no encontramos coincidencias con tu búsqueda.";
-            if (product) {
-                responseText = `📦 *${product.name}*\n\n` +
-                    `💰 Precio: $${product.price}\n` +
-                    `📝 Info: ${product.description}\n` +
-                    `🔢 Stock: ${product.stock} units`;
-            }
-
-            // 2. Enviar respuesta vía Meta API
-            await axios({
-                method: "POST",
-                url: `https://graph.facebook.com/v18.0/${process.env.META_PHONE_NUMBER_ID}/messages`,
-                data: {
-                    messaging_product: "whatsapp",
-                    to: phoneNumber,
-                    text: { body: responseText },
-                },
-                headers: { "Authorization": `Bearer ${process.env.META_ACCESS_TOKEN}` },
-            });
-        }
-
-        // Meta requiere un 200 OK para confirmar recepción
-        res.sendStatus(200);
-    } catch (err) {
-        console.error("Error:", err.response?.data || err.message);
-        res.sendStatus(500);
-    }
-};
 
 // --- OPERACIONES CRUD PARA API ---
+
+const productService = require('../services/productService');
+
 exports.createProduct = async (req, res) => {
     try {
-        const product = new Product(req.body);
-        await product.save();
-        res.status(201).json(product);
-    } catch (err) { res.status(400).json({ error: err.message }); }
+        const newProduct = await productService.createProduct(req.body);
+        response.success(res, newProduct, 'Producto creado con éxito', 201);
+    } catch (error) {
+        response.error(res, error.message, 400);
+    }
 };
 
 exports.getAllProducts = async (req, res) => {
-    const products = await Product.find();
-    res.json(products);
-};
-
-// Función para verificar el Webhook (Requerido por Meta)
-exports.verifyWebhook = (req, res) => {
-    const mode = req.query['hub.mode'];
-    const token = req.query['hub.verify_token'];
-    const challenge = req.query['hub.challenge'];
-
-    if (mode && token === process.env.META_VERIFY_TOKEN) {
-        res.status(200).send(challenge);
-    } else {
-        res.sendStatus(403);
+    try {
+        const products = await productService.getProducts();
+        response.success(res, products); // Por defecto usa status 200 y mensaje "Ok"
+    } catch (err) {
+        response.error(res, 'Error al obtener productos: ' + err);
     }
 };
+
+exports.getProductById = async (req, res) => {
+    try {
+        const product = await productService.getProductById(req.params.id);
+        response.success(res, product);
+    } catch (err) {
+        response.error(res, 'Error al obtener productos');
+    }
+}
+
+exports.updateProduct = async (req, res) => {
+    response.success(res);
+}
+exports.deleteProduct = async (req, res) => {
+    response.success(res);
+}
+
