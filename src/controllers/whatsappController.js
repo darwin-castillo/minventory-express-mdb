@@ -26,17 +26,18 @@ exports.handleWhatsApp = async (req, res) => {
         if (message && message.type === 'text') {
             const phoneNumber = message.from; // Número del cliente
             const incomingMsg = message.text.body.trim();
-            const product = await Product.findOne({
-                name: { $regex: new RegExp(incomingMsg, "i") }
-            });
+            const responseText = await chatService.askChatbot(incomingMsg);
+            // const product = await Product.findOne({
+            //     name: { $regex: new RegExp(incomingMsg, "i") }
+            // });
 
-            let responseText = "❌ Disculpa, no encontramos coincidencias con tu búsqueda.";
-            if (product) {
-                responseText = `📦 *${product.name}*\n\n` +
-                    `💰 Precio: $${product.price}\n` +
-                    `📝 Info: ${product.description}\n` +
-                    `🔢 Stock: ${product.stock} units`;
-            }
+            // let responseText = "❌ Disculpa, no encontramos coincidencias con tu búsqueda.";
+            // if (product) {
+            //     responseText = `📦 *${product.name}*\n\n` +
+            //         `💰 Precio: $${product.price}\n` +
+            //         `📝 Info: ${product.description}\n` +
+            //         `🔢 Stock: ${product.stock} units`;
+            // }
 
 
             await axios({

@@ -5,6 +5,7 @@ const productRoutes = require('./routes/productRoutes');
 const storeRoutes = require('./routes/storeRoutes');
 const whatsappRoutes = require('./routes/whatsappRoutes');
 const userRoutes = require('./routes/userRoutes');
+const chatRoutes = require('./routes/chatRoutes');
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,7 @@ mongoose.connect(process.env.MONGO_URI)
 app.use('/api/stores', storeRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/chat', chatRoutes);
 app.use(whatsappRoutes);
 
 

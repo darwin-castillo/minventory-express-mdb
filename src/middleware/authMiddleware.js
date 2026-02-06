@@ -10,7 +10,7 @@ const protect = (req, res, next) => {
             token = req.headers.authorization.split(' ')[1];
 
             // Verificar el token con la clave secreta
-            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret_key_123');
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
             // Añadimos los datos del usuario decodificados al objeto request
             req.user = decoded;

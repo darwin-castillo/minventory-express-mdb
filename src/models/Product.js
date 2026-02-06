@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const ProductSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: String,
@@ -7,6 +8,7 @@ const ProductSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     cost: { type: Number, required: true },
     stock: { type: Number, default: 0 },
+    embeddings: { type: [Number], default: [] },
     images: {
         type: [String],
         default: [],
@@ -14,6 +16,15 @@ const ProductSchema = new mongoose.Schema({
     },
     store: { type: mongoose.Schema.Types.ObjectId, ref: 'Store', required: true }
 }, { timestamps: true }); 8
+
+ProductSchema.pre('save', async function (next) {
+    if (this.isModified('description') || this.isModified('name')) {
+        const aiService = require('../services/aiService');
+        const textToEmbed = `${this.name} ${this.description} ${this.category} ${this.category}`;
+        this.embeddings = await aiService.generateEmbedding(textToEmbed);
+    }
+    //  next();
+});
 
 function arrayLimit(val) {
     return val.length <= 5;

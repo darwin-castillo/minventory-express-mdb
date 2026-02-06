@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const aiService = require('./aiService');
 
 const createProduct = async (productData) => {
     const product = new Product(productData);
@@ -14,7 +15,22 @@ const getInventoryByStore = async (storeId) => {
 const getProductById = async (id) => {
     return await Product.findOne({ id: id })
 }
+const smartSearch = async (queryText) => {
+    const queryVector = await aiService.generateEmbedding(queryText);
+
+    return await Product.aggregate([
+        {
+            $vectorSearch: {
+                index: "vector_index", // Nombre del índice en MongoDB Atlas
+                path: "embeddings",
+                queryVector: queryVector,
+                numCandidates: 100,
+                limit: 10
+            }
+        }
+    ]);
+};
 
 
 
-module.exports = { createProduct, getInventoryByStore, getProducts, getProductById };
+module.exports = { createProduct, getInventoryByStore, getProducts, getProductById, smartSearch };
