@@ -45,7 +45,7 @@ const generateEmbedding = async (text) => {
     } catch (error) {
         // Si falla, es probable que sea por la versión del modelo en tu región.
         // El modelo 'embedding-001' es el más compatible a nivel global.
-        console.warn("⚠️ Falló text-embedding-001, intentando con embedding-001...", error);
+        console.warn("⚠️ Falló embedding-001...", error);
 
         // try {
         //     const ai = new GoogleGenAI({});

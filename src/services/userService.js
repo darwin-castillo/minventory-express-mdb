@@ -32,12 +32,12 @@ const registerUser = async (userData) => {
 
 const loginUser = async (email, password) => {
     const user = await User.findOne({ email: email });
-
+    console.log("el user es ", JSON.stringify(user));
     if (user && (await bcrypt.compare(password, user.password))) {
         return {
             _id: user._id,
-            name: user.name,
-            username: user.username,
+            name: user.name ?? null,
+            email: user.email ?? null,
             token: generateToken(user._id)
         };
     } else {

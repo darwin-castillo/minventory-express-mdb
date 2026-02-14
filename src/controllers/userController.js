@@ -21,6 +21,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    console.log(req.body);
     const data = await userService.loginUser(req.body.email, req.body.password);
     response.success(res, data, 'Usuario logueado con éxito');
   } catch (err) {

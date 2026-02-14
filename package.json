@@ -15,11 +15,12 @@
   "type": "commonjs",
   "main": "src/app.js",
   "scripts": {
-    "dev-local": "node --env-file=.env src/app.js"
+    "dev-local": "node --env-file=.env src/app.js --watch"
   },
   "dependencies": {
     "@google/genai": "^1.40.0",
     "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "mongoose": "^9.1.5",
