@@ -30,3 +30,7 @@
    ```bash
    git clone [https://github.com/darwin-castillo//minventory-express-mdb](https://github.com/darwin-castillo/minventory-express-mdb.git)
    cd minventario
+2. **Instalar dependencias:**
+       ```bash
+   npm install
+   
