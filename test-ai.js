@@ -3,7 +3,7 @@ const aiService = require('./src/services/aiService');
 
 async function test() {
     try {
-        const vector = await aiService.generateEmbedding("Probando teléfonos inteligentes con Hugging Face");
+        const vector = await aiService.generateEmbedding("Probando teléfonos inteligentes");
         console.log("✅ ¡Conexión exitosa!");
         console.log("Vector generado con tamaño:", vector.length); // Debería decir 384
     } catch (e) {
