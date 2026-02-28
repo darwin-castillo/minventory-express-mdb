@@ -1,6 +1,6 @@
 # 📦 Minventario
 
-**Minventario** es una aplicación ligera y eficiente para la gestión de inventarios, desarrollada con el stack **Node.js** y **MongoDB**. Ideal para pequeños negocios o proyectos personales que necesitan un control claro de sus existencias.
+**Minventario** es una aplicación ligera y eficiente para la gestión de inventarios, desarrollada con el stack **Node.js** y **MongoDB**. Ideal para pequeños negocios o proyectos personales que necesitan un control claro de sus existencias, con gestión de consulta mediante Whatsapp y respuesta con Chatbot
 
 ---
 
@@ -11,6 +11,7 @@
 * 🏷️ **Categorización:** Organización de artículos por categorías.
 * 🔍 **Búsqueda Rápida:** Filtros por nombre o SKU.
 * 🔐 **Seguridad:** Autenticación básica para proteger el acceso a los datos.
+* 
 
 ---
 
