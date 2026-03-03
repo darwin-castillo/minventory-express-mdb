@@ -11,14 +11,13 @@ const chatRoutes = require('./routes/chatRoutes');
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:3001', // El puerto donde corre tu React
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: 'http://localhost:3001',
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Conexión a MongoDB
+
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('✅ Conectado a MongoDB'))
     .catch(err => console.error('❌ Error de conexión:', err));
@@ -33,14 +32,7 @@ app.use('/api/chat', chatRoutes);
 app.use(whatsappRoutes);
 
 
-app.get("/variables", (req, res) => {
-    res.json({
-        MONGO_URI: process.env.MONGO_URI,
-        META_ACCESS_TOKEN: process.env.META_ACCESS_TOKEN,
-        META_PHONE_NUMBER_ID: process.env.META_PHONE_NUMBER_ID,
-        META_VERIFY_TOKEN: process.env.META_VERIFY_TOKEN,
-    });
-});
+
 
 
 // Solo ejecuta listen si no estás en Vercel (entorno local)
