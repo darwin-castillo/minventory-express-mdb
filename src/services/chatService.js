@@ -13,7 +13,6 @@ const askChatbot = async (userQuestion) => {
     `- Producto: ${p.name}, Precio: ${p.price}, Stock: ${p.stock}`
   ).join("\n");
 
-
   const prompt = `
     Actúa como un asistente de ventas de tecnología experto y amable.
     Basado en este inventario real:
