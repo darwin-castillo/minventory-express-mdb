@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: String,
-    category: { type: String, required: true, index: true }, // 👈 Agregado con índice para búsquedas rápidas
+    category: { type: String, required: true, index: true }, // Agregado con índice para búsquedas rápidas
     price: { type: Number, required: true },
     cost: { type: Number, required: true },
     stock: { type: Number, default: 0 },

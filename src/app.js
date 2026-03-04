@@ -10,12 +10,16 @@ const chatRoutes = require('./routes/chatRoutes');
 
 const app = express();
 
-app.use(cors({
-    origin: 'http://localhost:3001',
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors(
+    {
+        origin: "*",
+        methods: "GET,HEAD,OPTIONS,POST,PUT",
+        allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Access-Token"
+    }
+));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 
 
 mongoose.connect(process.env.MONGO_URI)

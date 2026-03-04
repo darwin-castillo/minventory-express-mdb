@@ -20,19 +20,18 @@ const registerUser = async (userData) => {
 
 
     if (userExists) throw new Error('El usuario ya existe');
-    console.log("paso el userExists");
+
 
 
     const user = new User(userData);
-    console.log("paso el user");
-    console.log(user);
+
 
     return await user.save();
 };
 
 const loginUser = async (email, password) => {
     const user = await User.findOne({ email: email });
-    console.log("el user es ", JSON.stringify(user));
+
     if (user && (await bcrypt.compare(password, user.password))) {
         return {
             _id: user._id,

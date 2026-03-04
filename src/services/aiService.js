@@ -7,7 +7,7 @@ const axios = require("axios");
 const generateEmbedding = async (text) => {
     try {
 
-        console.log("texto a embedir", text);
+
         //   const ai = new GoogleGenAI({});
         const response = await axios({
             method: "POST",
