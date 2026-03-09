@@ -23,8 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 
 
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ Conectado a MongoDB'))
-    .catch(err => console.error('❌ Error de conexión:', err));
+    .then(() => { })
+    .catch(err => console.error('Error de conexión:', err));
 
 
 
@@ -36,10 +36,7 @@ app.use('/api/chat', chatRoutes);
 app.use(whatsappRoutes);
 
 
-
-
-
-// Solo ejecuta listen si no estás en Vercel (entorno local)
+// Solo ejecuta listen si no esta en Vercel (entorno local)
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));

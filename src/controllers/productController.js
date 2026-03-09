@@ -34,7 +34,9 @@ exports.getProductById = async (req, res) => {
 }
 
 exports.updateProduct = async (req, res) => {
-    response.success(res);
+    console.log(req.body);
+    const product = await productService.updateProduct(req.params.id, req.body);
+    response.success(res, product);
 }
 exports.deleteProduct = async (req, res) => {
     response.success(res);
