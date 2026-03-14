@@ -15,8 +15,8 @@ const generateToken = (id) => {
 };
 
 const registerUser = async (userData) => {
-    const { username } = userData;
-    const userExists = await User.findOne({ username });
+    const { email } = userData;
+    const userExists = await User.findOne({ email });
 
 
     if (userExists) throw new Error('El usuario ya existe');

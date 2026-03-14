@@ -23,7 +23,6 @@ const updateProduct = async (id, productData) => {
         throw new Error('Producto no encontrado');
     }
     console.log(productData.images);
-
     if (productData.images) {
         const images = [];
         let imgIndex = 1;
