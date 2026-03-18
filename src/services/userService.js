@@ -4,8 +4,6 @@ const bcrypt = require('bcryptjs');
 
 const getAll = async () => await User.find();
 
-const getById = async (id) => await User.findById(id);
-
 
 
 
@@ -15,6 +13,8 @@ const generateToken = (id) => {
         expiresIn: '30d',
     });
 };
+
+const getById = async (id) => await User.findById(id);
 
 const registerUser = async (userData) => {
     const { email } = userData;
@@ -46,4 +46,4 @@ const loginUser = async (email, password) => {
     }
 };
 
-module.exports = { registerUser, loginUser, getAll };
+module.exports = { registerUser, loginUser, getAll, getById };
