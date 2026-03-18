@@ -14,6 +14,23 @@ const generateToken = (id) => {
     });
 };
 
+const updateUser = async (id, userData) => {
+    const user = await User.findById(id);
+    if (!user) {
+        throw new Error('Usuario no encontrado');
+    }
+    if (userData.password) {
+        user.password = await bcrypt.hash(userData.password, 10);
+    }
+    if (userData.name) {
+        user.name = userData.name;
+    }
+    if (userData.email) {
+        user.email = userData.email;
+    }
+    return await user.save();
+};
+
 const getById = async (id) => await User.findById(id);
 
 const registerUser = async (userData) => {
@@ -46,4 +63,4 @@ const loginUser = async (email, password) => {
     }
 };
 
-module.exports = { registerUser, loginUser, getAll, getById };
+module.exports = { registerUser, loginUser, getAll, getById, updateUser };

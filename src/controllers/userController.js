@@ -17,6 +17,14 @@ const getById = async (req, res) => {
     response.error(res, err.message);
   }
 };
+const updateUser = async (req, res) => {
+  try {
+    const data = await userService.updateUser(req.params.id, req.body);
+    response.success(res, data, 'Usuario actualizado con éxito');
+  } catch (err) {
+    response.error(res, err.message);
+  }
+};
 
 const register = async (req, res) => {
   try {
@@ -38,4 +46,4 @@ const login = async (req, res) => {
 };
 
 
-module.exports = { getAll, register, login, getById };
+module.exports = { getAll, register, login, getById, updateUser };
