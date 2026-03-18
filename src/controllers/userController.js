@@ -9,6 +9,14 @@ const getAll = async (req, res) => {
     response.error(res, err.message);
   }
 };
+const getById = async (req, res) => {
+  try {
+    const data = await userService.getById(req.params.id);
+    response.success(res, data);
+  } catch (err) {
+    response.error(res, err.message);
+  }
+};
 
 const register = async (req, res) => {
   try {
