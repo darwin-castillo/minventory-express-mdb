@@ -2,44 +2,27 @@ require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
-const productRoutes = require('./routes/productRoutes');
-const storeRoutes = require('./routes/storeRoutes');
-const whatsappRoutes = require('./routes/whatsappRoutes');
-const userRoutes = require('./routes/userRoutes');
-const chatRoutes = require('./routes/chatRoutes');
+const createAppRouter = require('./framework/routes');
 
 const app = express();
 
-app.use(cors(
-    {
-        origin: "*",
-        methods: "GET,HEAD,OPTIONS,POST,PUT",
-        allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Access-Token"
-    }
-));
+app.use(cors({
+  origin: '*',
+  methods: 'GET,HEAD,OPTIONS,POST,PUT',
+  allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization, X-Access-Token',
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
-
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => { })
-    .catch(err => console.error('Error de conexión:', err));
+  .then(() => {})
+  .catch(err => console.error('Error de conexión:', err));
 
+app.use(createAppRouter());
 
-
-
-app.use('/api/stores', storeRoutes);
-app.use('/api/products', productRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/chat', chatRoutes);
-app.use(whatsappRoutes);
-
-
-// Solo ejecuta listen si no esta en Vercel (entorno local)
 if (process.env.NODE_ENV !== 'production') {
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`Servidor en puerto ${PORT}`));
 }
-module.exports = app;
 
+module.exports = app;

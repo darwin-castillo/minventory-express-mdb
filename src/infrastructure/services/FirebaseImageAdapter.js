@@ -1,16 +1,13 @@
 const admin = require('firebase-admin');
 const { getDownloadURL } = require('firebase-admin/storage');
 
-let initialized = false;
-
 function ensureFirebase() {
-  if (initialized) return;
+  if (admin.apps.length > 0) return;
   const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     storageBucket: 'masterrifas-34928.firebasestorage.app',
   });
-  initialized = true;
 }
 
 class FirebaseImageAdapter {
