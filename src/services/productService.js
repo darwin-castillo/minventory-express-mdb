@@ -39,10 +39,14 @@ const updateProduct = async (id, productData) => {
 const smartSearch = async (queryText) => {
     const queryVector = await aiService.generateEmbedding(queryText);
 
+    if (!queryVector || !Array.isArray(queryVector) || queryVector.length === 0) {
+        return [];
+    }
+
     return await Product.aggregate([
         {
             $vectorSearch: {
-                index: "vector_index", // Nombre del índice en MongoDB Atlas
+                index: "vector_index",
                 path: "embeddings",
                 queryVector: queryVector,
                 numCandidates: 100,
